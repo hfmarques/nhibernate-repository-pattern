@@ -1,0 +1,1 @@
+nhibernate-repository-pattern
