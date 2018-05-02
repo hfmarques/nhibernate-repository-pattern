@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NHibernate.Core\NHibernate.Core.csproj" />
+    <ProjectReference Include="..\NHibernate.Data\NHibernate.Data.csproj" />
+  </ItemGroup>
+
 </Project>
