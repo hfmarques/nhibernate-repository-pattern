@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using NHibernate.Core.Models;
 
 namespace NHibernate.Data.Persistence.Mappings
@@ -11,6 +8,7 @@ namespace NHibernate.Data.Persistence.Mappings
         public EnderecoMap()
         {
             Id(x => x.Id).GeneratedBy.Identity();
+
             Map(x => x.Complemento);
             Map(x => x.Numero);
             Map(x => x.Bairro);

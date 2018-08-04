@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using NHibernate.Data.Persistence.DataContext;
+﻿using NHibernate.Data.Persistence.DataContext;
 using NHibernate.Repository.Repositories;
+using System.Threading.Tasks;
 
 namespace NHibernate.Repository
 {
@@ -8,30 +8,16 @@ namespace NHibernate.Repository
     {
         private ISession _session;
         private ITransaction _transaction;
+        public IEnderecoRepository Endereco { get; }
+        public IHotelRepository Hotel { get; }
+        public IQuartoRepository Quarto { get; }
 
         public UnitOfWork(DataContext session)
         {
             _session = session.OpenSession();
-            Cliente = new ClienteRepository(_session);
             Endereco = new EnderecoRepository(_session);
-            Funcionario = new FuncionarioRepository(_session);
             Hotel = new HotelRepository(_session);
             Quarto = new QuartoRepository(_session);
-            Reserva = new ReservaRepository(_session);
-            Telefone = new TelefoneRepository(_session);
-        }
-
-        public IClienteRepository Cliente { get; }
-        public IEnderecoRepository Endereco { get; }
-        public IFuncionarioRepository Funcionario { get; }
-        public IHotelRepository Hotel { get; }
-        public IQuartoRepository Quarto { get; }
-        public IReservaRepository Reserva { get; }
-        public ITelefoneRepository Telefone { get; }
-
-        public async Task SaveChangesAsync()
-        {
-            await _session.FlushAsync();
         }
 
         public void BeginTransaction()
@@ -73,7 +59,6 @@ namespace NHibernate.Repository
             }
 
             if (_session == null) return;
-            await SaveChangesAsync();
             CloseSession();
         }
     }

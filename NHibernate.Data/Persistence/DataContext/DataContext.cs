@@ -12,7 +12,7 @@ namespace NHibernate.Data.Persistence.DataContext
 
             SessionFactory = Fluently
                 .Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Server=localhost\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;"))
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Hotel;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DataContext>())
                 .BuildSessionFactory();
         }

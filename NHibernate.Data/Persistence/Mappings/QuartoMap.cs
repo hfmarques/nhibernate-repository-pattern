@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using NHibernate.Core.Models;
 
 namespace NHibernate.Data.Persistence.Mappings
@@ -11,10 +8,13 @@ namespace NHibernate.Data.Persistence.Mappings
         public QuartoMap()
         {
             Id(x => x.Id).GeneratedBy.Identity();
+
             Map(x => x.Cama);
             Map(x => x.Numero);
             Map(x => x.Ocupado);
             Map(x => x.Tipo);
+
+            References(x => x.Hotel).Column("HotelId");
         }
     }
 }

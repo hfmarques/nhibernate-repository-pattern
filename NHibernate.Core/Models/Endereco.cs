@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NHibernate.Core.Models
+﻿namespace NHibernate.Core.Models
 {
     public class Endereco
     {
-        public int Id { get; set; }
-        public int Numero { get; set; }
-        public string Complemento { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public string Cep { get; set; }
-        public string Uf { get; set; }
-        public string Rua { get; set; }
+        public virtual int Id { get; set; }
+        public virtual int Numero { get; set; }
+        public virtual string Complemento { get; set; }
+        public virtual string Bairro { get; set; }
+        public virtual string Cidade { get; set; }
+        public virtual string Cep { get; set; }
+        public virtual string Uf { get; set; }
+        public virtual string Rua { get; set; }
     }
 }

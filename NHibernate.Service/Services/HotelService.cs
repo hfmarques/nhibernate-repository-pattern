@@ -1,16 +1,15 @@
-﻿using System;
+﻿using NHibernate.Core.Models;
+using NHibernate.Data.Persistence.DataContext;
+using NHibernate.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using NHibernate.Core.Models;
-using NHibernate.Data.Persistence.DataContext;
-using NHibernate.Repository;
 
 namespace NHibernate.Service.Services
 {
-    public class HotelService : IService<Hotel>
+    public class HotelService
     {
         private readonly UnitOfWork _unitOfWork;
 
@@ -34,34 +33,58 @@ namespace NHibernate.Service.Services
             return (await _unitOfWork.Hotel.FindAsync(predicate)).AsQueryable();
         }
 
-        public async Task AddAsync(Hotel model)
+        public async Task<Hotel> AddAsync(Hotel model)
         {
-            await _unitOfWork.Hotel.AddAsync(model);
-            await _unitOfWork.SaveChangesAsync();
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                if (_unitOfWork.Endereco.FindAsync(x =>
+                        x.Cidade == model.Endereco.Cidade && x.Bairro == model.Endereco.Bairro &&
+                        x.Complemento == model.Endereco.Complemento && x.Numero == model.Endereco.Numero &&
+                        x.Rua == model.Endereco.Rua && x.Uf == model.Endereco.Uf).Result.FirstOrDefault() == null)
+                    await _unitOfWork.Endereco.AddAsync(model.Endereco);
+
+                foreach (var quarto in model.Quartos)
+                {
+                    await _unitOfWork.Quarto.AddAsync(quarto);
+                }
+
+                await _unitOfWork.Hotel.AddAsync(model);
+
+                await _unitOfWork.CommitTransactionAsync();
+
+                return model;
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollBackTransactionAsync();
+                throw;
+            }
         }
 
         public async Task AddRangeAsync(IEnumerable<Hotel> models)
         {
             await _unitOfWork.Hotel.AddRangeAsync(models);
-            await _unitOfWork.SaveChangesAsync();
+
         }
 
         public async Task UpdateAsync(Hotel model)
         {
             await _unitOfWork.Hotel.UpdateAsync(model);
-            await _unitOfWork.SaveChangesAsync();
+
         }
 
         public async Task RemoveAsync(Hotel model)
         {
             await _unitOfWork.Hotel.RemoveAsync(model);
-            await _unitOfWork.SaveChangesAsync();
+
         }
 
         public async Task RemoveRangeAsync(IEnumerable<Hotel> models)
         {
             await _unitOfWork.Hotel.RemoveRangeAsync(models);
-            await _unitOfWork.SaveChangesAsync();
+
         }
     }
 }

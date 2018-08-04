@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NHibernate.Core.Models
 {
     public class Hotel
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public List<Pessoa> Pessoas { get; set; }
-        public List<Telefone> Telefones { get; set; }
-        public Endereco Endereco { get; set; }
-        public List<Quarto> Quartos { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Nome { get; set; }
+        public virtual Endereco Endereco { get; set; }
+        public virtual IList<Quarto> Quartos { get; set; }
     }
 }

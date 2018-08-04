@@ -8,11 +8,12 @@ namespace NHibernate.Data.Persistence.Mappings
         public HotelMap()
         {
             Id(x => x.Id).GeneratedBy.Identity();
+
             Map(x => x.Nome);
-            Map(x => x.Telefones);
-            Map(x => x.Endereco);
-            Map(x => x.Pessoas);
-            Map(x => x.Quartos);
+
+            References(x => x.Endereco).Column("EnderecoId");
+
+            HasMany(x => x.Quartos);
         }
     }
 }
