@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator" Version="2.0.7" />
+    <PackageReference Include="FluentNHibernate" Version="2.1.2" />
+    <PackageReference Include="NHibernate" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NHibernate.Core\NHibernate.Core.csproj" />
+  </ItemGroup>
+
+</Project>
